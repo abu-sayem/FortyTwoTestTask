@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from django.views import View
+from apps.contacts.models import Contact
 
 
 class ContactView(View):
     template_name = 'contacts/contact.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        try:
+            data = Contact.objects.get(pk=1)
+        except Contact.DoesNotExist:
+            return render(request, '404.html')
+        return render(request, self.template_name, {'data': data})
