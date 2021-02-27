@@ -16,16 +16,16 @@ class InfoModelTest(TestCase):
             bio='This is sample bio',
             other_contacts='other contact info',
         )
-        self.info = Contact.objects.get(id=1)
+        self.contact = Contact.objects.get(id=1)
 
     def test_string_representation(self):
         """Test string representaions of info model"""
-        expected_info = f'{self.info.name} {self.info.last_name}'
-        self.assertEqual(expected_info, str(self.info))
+        expected_info = f'{self.contact.name} {self.contact.last_name}'
+        self.assertEqual(expected_info, str(self.contact))
 
     def test_verbose_name_plural(self):
         """Ckeeck verbose name"""
-        self.assertEqual(str(Contact._meta.verbose_name_plural), 'infos')
+        self.assertEqual(str(Contact._meta.verbose_name_plural), 'contacts')
 
     def test_info_exists(self):
         """Cheeck existing data of info model after insertion"""
