@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='contact',
-            options={'verbose_name_plural': 'infos'},
+            options={'verbose_name_plural': 'contacts'},
         ),
         migrations.AddField(
             model_name='contact',
