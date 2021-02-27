@@ -34,6 +34,18 @@ class InfoModelTest(TestCase):
 
 class ContactViewTest(TestCase):
     def setUp(self):
+        Contact.objects.create(
+            name='Abu',
+            last_name='Sayem',
+            date_of_birth='1993-10-25',
+            contacts='+8801750721112',
+            email='abusaayem@gmail.com',
+            jabber='abusayem.42cc.co',
+            skype='abusaayem',
+            bio='This is sample bio',
+            other_contacts='other contact info',
+        )
+        self.contact = Contact.objects.get(id=1)
         self.response = self.client.get('/')
 
     def test_can_visit_homepage(self):
