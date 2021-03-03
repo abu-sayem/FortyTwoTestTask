@@ -14,8 +14,5 @@ class Contact(models.Model):
     bio = models.TextField(blank=True)
     other_contacts = models.TextField(blank=True)
 
-    class Meta:
-        verbose_name_plural = 'contacts'
-
     def __str__(self):
         return self.name + ' ' + self.last_name
