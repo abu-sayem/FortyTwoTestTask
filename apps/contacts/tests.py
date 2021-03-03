@@ -18,6 +18,13 @@ class InfoModelTest(TestCase):
             bio='This is sample bio',
             other_contacts='other contact info',
         )
+        self.log = Log.objects.create(
+            path='/',
+            method='GET',
+            user='neonwave',
+            browser='Firefox',
+            time=datetime.now(),
+        )
 
     def test_string_representation(self):
         """Test string representaions of info model"""
@@ -27,6 +34,10 @@ class InfoModelTest(TestCase):
     def test_info_exists(self):
         """Cheeck existing data of info model after insertion"""
         self.assertNotEqual(Contact.objects.count(), 0)
+
+    def test_log_exists(self):
+        """Cheeck existing data of info model after insertion"""
+        self.assertNotEqual(Log.objects.count(), 0)
 
 
 class ContactViewTest(TestCase):
