@@ -1,45 +1,56 @@
 {% extends 'base.html' %}
-{% block title %}request{% endblock title %}
-
+{% block title %} requests{% endblock title %}
 {% block content %}
-    <div class="container my-4">
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Path</th>
-                    <th scope="col">Method</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Browser</th>
-                    <th scope="col">Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>/</td>
-                    <td>GET</td>
-                    <td>neonwave</td>
-                    <td>Chrome</td>
-                    <td>2021-02-28</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>/admin</td>
-                    <td>POST</td>
-                    <td>neonwave</td>
-                    <td>Chrome</td>
-                    <td>2021-02-28</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>/</td>
-                    <td>GET</td>
-                    <td>neonwave</td>
-                    <td>Firefox</td>
-                    <td>2021-02-28</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container my-4">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Path</th>
+                <th scope="col">Method</th>
+                <th scope="col">User</th>
+                <th scope="col">Browser</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td id="path">{{log.path}}</td>
+                <td id="method">{{log.method}}</td>
+                <td id="user">{{log.user}}</td>
+                <td id="browser">{{log.browser}}</td>
+                <td id="time">{{log.time}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    const requestCount = Number({{ count }});
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/log",
+                // data: "",
+                success: function (msg, textStatus, xhr) {
+                    document.title = (msg.count - requestCount) + ' requests';
+                    $('table > tbody  > tr').each(function (index, tr) {
+                        $(tr).find("#path").text(msg.data[index].path)
+                        $(tr).find("#method").text(msg.data[index].method)
+                        $(tr).find("#user").text(msg.data[index].user)
+                        $(tr).find("#browser").text(msg.data[index].browser)
+                        $(tr).find("#time").text(msg.data[index].time)
+                    });
+                }
+            });
+        }, 5000);
+
+    });
+</script>
+{% endblock scripts %}
