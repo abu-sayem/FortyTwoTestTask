@@ -14,8 +14,18 @@ class Contact(models.Model):
     bio = models.TextField(blank=True)
     other_contacts = models.TextField(blank=True)
 
-    class Meta:
-        verbose_name_plural = 'contacts'
-
     def __str__(self):
         return self.name + ' ' + self.last_name
+
+
+class Log(models.Model):
+    """ COntact model containg user information """
+
+    path = models.CharField(max_length=255, blank=True)
+    method = models.CharField(max_length=255, blank=True)
+    user = models.CharField(max_length=255, blank=True)
+    browser = models.CharField(max_length=255, blank=True)
+    time = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.path + ', ' + self.user + ', ' + self.browser
