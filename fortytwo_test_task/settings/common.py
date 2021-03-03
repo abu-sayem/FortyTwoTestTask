@@ -28,6 +28,7 @@ SECRET_KEY = 'nwvy4v3acf*oxu$k(_bkue3m1x6nzaw$a=z^uk1e82)ou#d&8l'
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'floating-beach-16559.herokuapp.com']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.contacts',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'fortytwo_test_task.middleware.RequestLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'fortytwo_test_task.urls'
