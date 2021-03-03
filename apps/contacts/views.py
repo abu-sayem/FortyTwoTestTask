@@ -1,19 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.views.generic.base import TemplateView
+from apps.contacts.models import Contact, Log
 from django.views import View
-from django.views.generic import TemplateView
-from apps.contacts.models import Contact
+from django.http import JsonResponse
 
 
-class ContactView(View):
+class ContactView(TemplateView):
     template_name = 'contacts/contact.html'
 
-    def get(self, request, *args, **kwargs):
-        try:
-            data = Contact.objects.get(pk=1)
-        except Contact.DoesNotExist:
-            return render(request, '404.html')
-        return render(request, self.template_name, {'data': data})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['data'] = get_object_or_404(Contact, pk=1)
+        return context
 
 
-class LogView(TemplateView):
+class LogView(View):
     template_name = 'contacts/log.html'
+
+    def get(self, request, *args, **kwargs):
+        data = Log.objects.all().order_by('-id')[:10].values()
+        if request.is_ajax():
+            count = Log.objects.all().count()
+            data_list = list(data)
+            context = {
+                'data': data_list,
+                'count': count,
+            }
+            return JsonResponse(context, safe=False)
+        return render(request, self.template_name, {'data': data})
