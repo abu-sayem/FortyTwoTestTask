@@ -1,6 +1,7 @@
 # pull official base image
 FROM python:3.8-alpine AS build-python
 COPY ./requirements_prod.txt .
+COPY ./requirements_base.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements_prod.txt
 
 FROM python:3.8-alpine
