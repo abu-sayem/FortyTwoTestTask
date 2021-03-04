@@ -61,6 +61,7 @@ class ContactViewTest(TestCase):
             time=datetime.now(),
         )
         self.response = self.client.get('/')
+        self.response_log = self.client.get('/log')
 
     def test_can_visit_homepage(self):
         """  test can visit home page"""
