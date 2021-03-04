@@ -25,7 +25,7 @@ class Log(models.Model):
     method = models.CharField(max_length=255, blank=True)
     user = models.CharField(max_length=255, blank=True)
     browser = models.CharField(max_length=255, blank=True)
-    time = models.DateField(blank=True, null=True)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.path + ', ' + self.user + ', ' + self.browser

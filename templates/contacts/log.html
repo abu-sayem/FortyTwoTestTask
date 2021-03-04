@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} requests{% endblock title %}
+{% block title %} last 10 requests{% endblock title %}
 {% block content %}
     <div class="container my-4">
         <table class="table">
@@ -31,15 +31,12 @@
 
 {% block scripts %}
     <script type="text/javascript">
-    const requestCount = Number({{ count }});
     $(document).ready(function () {
         setInterval(function () {
             $.ajax({
                 type: "GET",
                 url: "http://127.0.0.1:8000/log",
-                // data: "",
                 success: function (msg, textStatus, xhr) {
-                    document.title = (msg.count - requestCount) + ' requests';
                     $('table > tbody  > tr').each(function (index, tr) {
                         $(tr).find("#path").text(msg.data[index].path)
                         $(tr).find("#method").text(msg.data[index].method)

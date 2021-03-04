@@ -94,6 +94,26 @@
             </div>
         </div>
         <a href={% url 'log' %} id="request" class="btn btn-primary btn-lg active" role="button"
-           aria-pressed="true">requests</a>
+           aria-pressed="true">0 new requests</a>
     </div>
 {% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    const requestCount = Number({{ count }});
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000",
+                // data: "",
+                success: function (msg, textStatus, xhr) {
+                    document.title = (msg.count - requestCount) + ' new requests';
+                    $("#request").text(`${(msg.count - requestCount)} new requests`);
+                }
+            });
+        }, 5000);
+
+    });
+</script>
+{% endblock scripts %}
