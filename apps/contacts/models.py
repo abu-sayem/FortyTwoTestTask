@@ -19,7 +19,7 @@ class Contact(models.Model):
 
 
 class Log(models.Model):
-    """ COntact model containg user information """
+    """ Log model containg log information """
 
     path = models.CharField(max_length=255, blank=True)
     method = models.CharField(max_length=255, blank=True)
