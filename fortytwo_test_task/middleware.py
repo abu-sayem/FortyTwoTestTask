@@ -10,5 +10,5 @@ class RequestLoggingMiddleware(MiddlewareMixin):
             log.path = request.path
             log.method = request.method
             log.user = request.user
-            log.browser = request.META.get('HTTP_USER_AGENT')
+            log.browser = request.META.get('HTTP_USER_AGENT', '')
             log.save()
