@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h3 class="py-4">42 Coffee Cups Test Assignment</h3>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group row">
+                                <label for="inputNamel3" class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputNamel3" placeholder="Name">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="inputNamel3" class="col-sm-3 col-form-label">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="inputName3" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="inputdate3" class="col-sm-3 col-form-label">Date of birth</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="exampleFormControlTextarea1" class="col-sm-3 col-form-label">Bio</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Contacts">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Jabber</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Jabber">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Skype</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Skype">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Other Contact</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary" type="save" value="Save">
+                    <input class="btn btn-primary" type="calcel" value="Cancel">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'mm-dd-yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options);
+        })
+    </script>
+
+{% endblock scripts %}

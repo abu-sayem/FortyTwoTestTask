@@ -3,7 +3,18 @@
 
 {% block content %}
     <div class="container">
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <button class="btn btn-outline-success my-2 ml-auto" type="submit">
+                {% if user.is_authenticated %}
+                    <a href={% url 'edit' %} id="edit" class="btn btn-primary btn-lg active" role="button"
+                       aria-pressed="true">Edit</a>
+                {% else %}
+                    <a href={% url 'login' %} id="edit" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Login</a>
+                {% endif %}
+            </button>
+        </nav>
         <h3 class="py-4">42 Coffee Cups Test Assignment</h3>
+        
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
@@ -99,7 +110,7 @@
 {% endblock content %}
 
 {% block scripts %}
-<script type="text/javascript">
+    <script type="text/javascript">
     const requestCount = Number({{ count }});
     $(document).ready(function () {
         setInterval(function () {
@@ -115,5 +126,5 @@
         }, 5000);
 
     });
-</script>
+    </script>
 {% endblock scripts %}
