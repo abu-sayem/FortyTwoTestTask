@@ -48,10 +48,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Bio:</h6>
+                                <h6 class="mb-0">Photo:</h6>
                             </div>
                             <div class="col-sm-9 text-small">
-                                {{data.bio}}
+                                <img src={{data.photo.url}} alt="..." class="img-thumbnail">         
                             </div>
                         </div>
                     </div>
@@ -98,6 +98,15 @@
                             </div>
                             <div class="col-sm-9 text-small">
                                 {{data.other_contacts}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Bio:</h6>
+                            </div>
+                            <div class="col-sm-9 text-small">
+                                {{data.bio}}
                             </div>
                         </div>
                     </div>
