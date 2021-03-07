@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from apps.contacts.models import Contact, Log
+from apps.contacts.forms import EditForm
 from django.views import View
 from django.http import JsonResponse
 from django.core.serializers import serialize
@@ -32,3 +33,17 @@ class LogView(View):
             }
             return JsonResponse(context, safe=False)
         return render(request, self.template_name, {'data': data})
+
+
+class EditView(View):
+    template_name = 'contacts/edit_contact.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class LoginView(View):
+    template_name = 'contacts/login.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

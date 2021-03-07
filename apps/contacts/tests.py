@@ -62,6 +62,8 @@ class ContactViewTest(TestCase):
         )
         self.response = self.client.get('/')
         self.response_log = self.client.get('/log')
+        self.response_login = self.client.get('/login')
+        self.response_edit = self.client.get('/edit')
 
     def test_can_visit_homepage(self):
         """  test can visit home page"""
@@ -79,4 +81,22 @@ class ContactViewTest(TestCase):
     def test_log_template_used(self):
         """ test correct template is used """
         self.assertTemplateUsed(self.response_log, 'contacts/log.html')
+        self.assertTemplateUsed(self.response_log, 'base.html')
+
+    def test_can_visit_loginpage(self):
+        """  test can visit login page"""
+        self.assertEqual(self.response_login.status_code, 200)
+
+    def test_can_visit_editpage(self):
+        """  test can visit edit page"""
+        self.assertEqual(self.response_edit.status_code, 200)
+
+    def test_login_template_used(self):
+        """ test correct template is used """
+        self.assertTemplateUsed(self.response_log, 'contacts/login.html')
+        self.assertTemplateUsed(self.response_log, 'base.html')
+
+    def test_edit_template_used(self):
+        """ test correct template is used """
+        self.assertTemplateUsed(self.response_log, 'contacts/edit.html')
         self.assertTemplateUsed(self.response_log, 'base.html')
