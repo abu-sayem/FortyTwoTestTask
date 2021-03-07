@@ -13,6 +13,7 @@ class Contact(models.Model):
     skype = models.CharField(max_length=50, blank=True)
     bio = models.TextField(blank=True)
     other_contacts = models.TextField(blank=True)
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
 
     def __str__(self):
         return self.name + ' ' + self.last_name
