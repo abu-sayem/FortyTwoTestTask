@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Contact(models.Model):
-    """ COntact model containg user information """
+    """ Contact model contains user information """
 
     name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
@@ -19,7 +19,7 @@ class Contact(models.Model):
 
 
 class Log(models.Model):
-    """ Log model containg log information """
+    """ Log model contains HTTP requests information """
 
     path = models.CharField(max_length=255, blank=True)
     method = models.CharField(max_length=255, blank=True)
