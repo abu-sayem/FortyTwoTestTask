@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for log in data %}
+                {% for log in logs %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td id="path">{{log.path}}</td>
@@ -35,14 +35,14 @@
         setInterval(function () {
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:8000/log",
+                url: "http://127.0.0.1:8000/ajax?logs=True",
                 success: function (msg, textStatus, xhr) {
                     $('table > tbody  > tr').each(function (index, tr) {
-                        $(tr).find("#path").text(msg.data[index].path)
-                        $(tr).find("#method").text(msg.data[index].method)
-                        $(tr).find("#user").text(msg.data[index].user)
-                        $(tr).find("#browser").text(msg.data[index].browser)
-                        $(tr).find("#time").text(msg.data[index].time)
+                        $(tr).find("#path").text(msg.logs[index].path)
+                        $(tr).find("#method").text(msg.logs[index].method)
+                        $(tr).find("#user").text(msg.logs[index].user)
+                        $(tr).find("#browser").text(msg.logs[index].browser)
+                        $(tr).find("#time").text(msg.logs[index].time)
                     });
                 }
             });
