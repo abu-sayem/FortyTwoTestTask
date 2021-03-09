@@ -8,6 +8,7 @@ class RequestLoggingMiddleware(MiddlewareMixin):
         log = Log()
         log.path = request.path
         log.method = request.method
-        log.user = request.user
+        if request.user.is_authenticated:
+            log.user = request.user
         log.browser = request.META.get('HTTP_USER_AGENT', '')
         log.save()
