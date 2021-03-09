@@ -1,11 +1,10 @@
 from django.test import TestCase
-
 from apps.contacts.models import Contact, Log
-
+from django.contrib.auth.models import User
 from datetime import datetime
 
 
-class InfoModelTest(TestCase):
+class ContactModelTest(TestCase):
     def setUp(self):
         self.contact = Contact.objects.create(
             name='Abu',
@@ -18,26 +17,24 @@ class InfoModelTest(TestCase):
             bio='This is sample bio',
             other_contacts='other contact info',
         )
+        self.user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
         self.log = Log.objects.create(
             path='/',
             method='GET',
-            user='neonwave',
+            user=self.user,
             browser='Firefox',
             time=datetime.now(),
         )
 
     def test_string_representation(self):
-        """Test string representaions of info model"""
+        """Test string representaions of contact model"""
         expected_info = f'{self.contact.name} {self.contact.last_name}'
         self.assertEqual(expected_info, str(self.contact))
 
-    def test_info_exists(self):
-        """Cheeck existing data of info model after insertion"""
-        self.assertNotEqual(Contact.objects.count(), 0)
-
-    def test_log_exists(self):
-        """Cheeck existing data of info model after insertion"""
-        self.assertNotEqual(Log.objects.count(), 0)
+    def test_string_representation_log_model(self):
+        """Test string representaions of log model"""
+        expected_info = f'{self.log.path}, {self.log.user}, {self.log.browser}'
+        self.assertEqual(expected_info, str(self.log))
 
 
 class ContactViewTest(TestCase):
@@ -53,10 +50,11 @@ class ContactViewTest(TestCase):
             bio='This is sample bio',
             other_contacts='other contact info',
         )
+        self.user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
         self.log = Log.objects.create(
             path='/',
             method='GET',
-            user='neonwave',
+            user=self.user,
             browser='Firefox',
             time=datetime.now(),
         )
