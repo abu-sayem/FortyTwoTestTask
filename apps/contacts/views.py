@@ -26,7 +26,6 @@ class LogListView(ListView):
 
 
 class AJAXView(View):
-
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
             log_required = request.GET.get('logs', False)
