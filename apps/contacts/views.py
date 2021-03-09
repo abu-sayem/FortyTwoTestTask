@@ -1,34 +1,34 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from apps.contacts.models import Contact, Log
 from django.views import View
+from django.views.generic import ListView, TemplateView
 from django.http import JsonResponse
-from django.core.serializers import serialize
+
+from apps.contacts.service import get_json
 
 
-class ContactView(View):
+class ContactView(TemplateView):
     template_name = 'contacts/contact.html'
 
-    def get(self, request, *args, **kwargs):
-        data = get_object_or_404(Contact, pk=1)
-        count = Log.objects.all().count()
-        if request.is_ajax():
-            context = {
-                'data': serialize('json', [data]),
-                'count': count,
-            }
-            return JsonResponse(context, safe=False)
-        return render(request, self.template_name, {'data': data, 'count': count})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['data'] = get_object_or_404(Contact, pk=1)
+        return context
 
 
-class LogView(View):
+class LogListView(ListView):
+    model = Log
     template_name = 'contacts/log.html'
+    context_object_name = 'logs'
+
+    def get_queryset(self):
+        return Log.objects.all().order_by('-id')[:10]
+
+
+class AJAXView(View):
 
     def get(self, request, *args, **kwargs):
-        data = Log.objects.all().order_by('-id')[:10].values()
         if request.is_ajax():
-            data_list = list(data)
-            context = {
-                'data': data_list,
-            }
+            log_required = request.GET.get('logs', False)
+            context = get_json(log_required)
             return JsonResponse(context, safe=False)
-        return render(request, self.template_name, {'data': data})
