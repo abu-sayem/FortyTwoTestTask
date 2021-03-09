@@ -100,14 +100,16 @@
 
 {% block scripts %}
 <script type="text/javascript">
-    const requestCount = Number({{ count }});
+    let requestCount = 0;
     $(document).ready(function () {
         setInterval(function () {
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:8000",
-                // data: "",
+                url: "http://127.0.0.1:8000/ajax",
                 success: function (msg, textStatus, xhr) {
+                    if(requestCount == 0) {
+                        requestCount = msg.count
+                    }
                     document.title = (msg.count - requestCount) + ' new requests';
                     $("#request").text(`${(msg.count - requestCount)} new requests`);
                 }
